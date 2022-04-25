@@ -1,6 +1,6 @@
 package day1;
 
-public class Ex_4Casting {
+public class Ex4Casting {
 	public static void main(String[] args) {
 		/*1.자동 타입변환
 		 *	-작은 타입의 값을 큰 타입에 저장하는 경우
@@ -49,5 +49,7 @@ public class Ex_4Casting {
 		System.out.println(num5_3);
 	
 	//실수는 웬만하면 doble을 이용하자 
+		
+		
 	}
 }
