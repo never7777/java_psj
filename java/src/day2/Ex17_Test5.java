@@ -33,7 +33,7 @@ public class Ex17_Test5 {
 			System.out.println(num + "는 6의 배수");
 		}else{
 			System.out.println(num + "는 2, 3, 6의 배수가 아님");
-		
+		}	
 		
 	}
 }
