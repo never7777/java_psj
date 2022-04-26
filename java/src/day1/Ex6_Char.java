@@ -20,7 +20,6 @@ public class Ex6_Char {
 	char ch9 = (char)num;
 	System.out.println(ch9);
 	ch9= (char)(num+1);
-	
 	System.out.println(ch9);
 	}
 }
