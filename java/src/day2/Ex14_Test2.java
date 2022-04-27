@@ -30,7 +30,7 @@ public class Ex14_Test2 {
 		else {
 			System.out.println("잘못된 성적입니다.");
 		}
-		// 잘못된 성적을 먼저 처리 함으로서 코드를 간경하게 줄일수 있음. 
+		// 잘못된 성적을 먼저 처리 함으로서 코드를 간결하게 줄일수 있음. 
 		
 		if(score < 0||score > 100) {
 			System.out.println(score + "점은 잘못된 성적");
