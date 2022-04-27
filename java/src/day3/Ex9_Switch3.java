@@ -8,6 +8,7 @@ public class Ex9_Switch3 {
 		 * 산술 연산자가 아닌 경우 ??은 산술 연산자가 아닙니다로 출력
 		 */
 		
+		
 		Scanner scan = new Scanner(System.in);
 	
 		System.out.print("두 정수와 산술 연산자를 입력하세요 (예: 1 + 2): ");
