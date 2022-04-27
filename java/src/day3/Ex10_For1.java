@@ -18,6 +18,7 @@ public class Ex10_For1 {
 		 * 규칙성(실행문) : Hello를 출력
 		 */
 		
+		
 		int i;
 		for(i=1; i<=5 ;i++) {
 			System.out.println("Hello");
