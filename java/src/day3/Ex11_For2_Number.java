@@ -15,6 +15,7 @@ public class Ex11_For2_Number {
 		 */
 		
 		
+		
 		for(int i= 1; i<=5; i++) {
 			System.out.println(i);
 		}
