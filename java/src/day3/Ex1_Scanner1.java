@@ -37,9 +37,9 @@ public class Ex1_Scanner1 {
 		int sum = kor + math + eng;
 		System.out.println("총점은 "+ sum + "입니다");
 		
-		double avg = ((double)kor+math+eng)/3;
+		//double avg = ((double)kor+math+eng)/3;
 
-		//double avg = (double)sum/3;
+		double avg = (double)sum/3;
 		System.out.println("평균은 "+ avg + "입니다");
 		
 		
