@@ -37,7 +37,7 @@ public class Ex3_For_Alphabet {
 		
 		int num1 = 1;
 		char ch1 = 'a'+ 1;//리터럴 상수 1은 char타입이어서 타입변환이 발생하지 않음
-		char ch2 = 'a'+(char)('a'+ num1);//num1의 1은 int 타입이어서 타입변환이 발생하고, 자동타입변환이 되지 않은 상황이어서 에러발생
+		char ch2 = (char)('a'+ num1);//num1의 1은 int 타입이어서 타입변환이 발생하고, 자동타입변환이 되지 않은 상황이어서 에러발생
 			
 			
 		
