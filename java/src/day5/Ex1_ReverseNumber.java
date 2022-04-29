@@ -21,8 +21,6 @@ public class Ex1_ReverseNumber {
 		 * 규칙성 : num의 일의 자리를 출력한 후 num를 10으로 나눈 몫을 num에 다시 저장
 		 */
 		
-		
-		
 		Scanner sc =new Scanner(System.in);
 		System.out.println("숫자를 입력하세요 : ");
 		int num = sc.nextInt();
@@ -32,7 +30,8 @@ public class Ex1_ReverseNumber {
 //			System.out.println(num);
 //			num =num/10;
 //		}
-//		int reverseNum = 0; //리버스 된 숫자 저장
+		int reverseNum = 0; //리버스 된 숫자 저장
+		int tepNum = 0; 
 		while(num !=0) {
 			////num = num/10-*10;
 			System.out.print(num%10);
@@ -40,5 +39,9 @@ public class Ex1_ReverseNumber {
 			reverseNum = 10*reverseNum +num%10;
 			num = num/10;
 		}
+		System.out.println();
+		System.out.println(tepNum+ "를 거꾸로한 정수 : "+reverseNum);
+	
+		sc.close();
 	}
 }
