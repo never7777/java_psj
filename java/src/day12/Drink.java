@@ -8,6 +8,9 @@ public class Drink extends Product {
 		super(name, price, amount);
 		this.capacity =capacity;
 	}
+	public Drink(Drink product) {
+		this(product.getName(), product.getPrice(),product.getAmount(),product.getCapacity());
+	}
 
 	@Override
 	public void print() {
@@ -18,6 +21,12 @@ public class Drink extends Product {
 		else {
 			System.out.println(getName()+"["+capacity/1000.0+"l] : "+getPrice()+"원 - " + getAmount());
 		}
+	}
+	public int getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
 	}
 	
 }

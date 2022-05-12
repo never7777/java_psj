@@ -9,6 +9,9 @@ public class SnackBox extends Product{
 		this.count = count;
 		
 	}
+	public SnackBox(SnackBox product) {
+		this(product.getName(), product.getPrice(),product.getAmount(),product.getCount());
+	}
 
 	@Override
 	public void print() {
