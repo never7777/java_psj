@@ -10,5 +10,6 @@ public interface ConsoleProgram {
 	
 	//프로그램 실행
 	void run();
+
 	
 }
