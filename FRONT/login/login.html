@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입</title>
+</head>
+<body>
+    <form action="http://localhost.php">
+        <label>아이디<br>
+        <input type="text" name="id"> 
+        <button>중복확인</button> </label> <br>
+
+        <label>비밀번호<br>
+        <input type="password" name="pwd"></label><br>
+
+        <label> 비밀번호 확인<br>
+        <input type="password" name="pwd"></label><br>
+
+        <label>이름<br>
+        <input type="text" name="name"></label><br>
+
+        <label>성별<br>
+        <select name="sex">
+            <option value="선택">선택</option>
+            <option value="남">남</option>
+            <option value="여">여</option>
+        </select></label><br>
+
+        <label>
+        생년월일<br>
+        <input type="text" name="year" placeholder="년도(4자리)">
+        <select name="month">
+            <option value="월">월</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="1">11</option>
+            <option value="12">12</option>
+        </select>
+        <input type="text" name="day" placeholder="일"></label><br>
+
+        <label>휴대전화<br>
+        <input type="text" name="phone" placeholder="전화번호 입력">
+        <button>인증번호 받기</button> </label><br>
+        
+        <label><input type="text" placeholder="인중번호를 입력하세요"></label><br>
+        
+        <button type="submit">가입하기</button>
+        
+    </form>
+</body>
+</html>
