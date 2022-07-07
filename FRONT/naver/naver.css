@@ -289,6 +289,7 @@ a{ text-decoration: none; }
 	border-radius: 50%;
 }
 
+
 /* 오른쪽 1번째 박스(로그인) */
 .content-con .box-right1{
 	height: 135px; box-sizing: border-box;
@@ -351,6 +352,176 @@ a{ text-decoration: none; }
 }
 .content-con .box-right1 .box-sub a:hover{
 	text-decoration: underline;
+}
+
+
+
+/* 왼쪽 3번째 박스(언론사) */
+
+
+.content-con .box-left3 .box-group-title{
+	padding: 22px 0 16px;
+	font-size: 14px; line-height: 18px;
+}
+.content-con .box-left3 .box-inner-left{
+	float: left;
+}
+.content-con .box-left3 .box-inner-right{
+	float: right;
+}
+.content-con .box-left3 .link-news-stand{
+	float: left; background: none !important;
+	font-weight: bold; color: #000;
+}
+.content-con .box-left3 .link-news-stand::before{
+	width: 27px; height: 24px; content: '';
+	display: inline-block; vertical-align: top;
+	margin: -6px 1px 0px 0px;
+	background-position: -336px -345px;
+}
+}
+.content-con .box-left3 .link-news-stand::after {
+	width: 7px; height: 11px; content: '';
+	display: inline-block; vertical-align: top;
+	margin: 0px, 0px, 0px, 6px;
+	background-position: -444px -317px;
+}
+.content-con .box-left3 .btn-subbscribe{
+	margin-left: 10px;
+	color:#505050; font-size:14px;
+}
+.content-con .box-left3 .btn-subbscribe.active,
+.content-con .box-left3 .btn-all.active{
+	color:#000; font-weight: bold;
+}
+
+.content-con .box-left3 .btn-all{
+	color:#505050; font-size:14px;
+}
+.content-con .box-left3 .btn-all::before{
+	width: 4px; height:4px; content: '';
+	display: inline-block; vertical-align: 3px;
+	margin: 0px 8px 0px 4px;
+	border-radius: 50% ; background-color: #c7ccd1;
+}
+.content-con .box-left3 .btn-article-view,
+.content-con .box-left3 .btn-article-view~a{
+	padding: 0 9px; float: left;
+}
+.content-con .box-left3 .icon-list{
+	width: 14px; height: 13px;
+	background-position: -49px -419px;
+	opacity: 0.7; display: inline-block;
+	vertical-align: top;
+}
+.content-con .box-left3 .icon-title{
+	width: 13px; height: 13px;
+	background-position: -444px -34px;
+	opacity: 0.7; display: inline-block;
+	vertical-align: top;
+}
+.content-con .box-left3 .icon-set{
+	width: 15px; height: 15px;
+	background-position: 0 -419px;
+	opacity: 0.7; display: inline-block;
+	margin: -1px 0 1px;
+	vertical-align: top;
+}
+.content-con .box-left3 a:hover .icon-list,
+.content-con .box-left3 a:hover .icon-title,
+.content-con .box-left3 a:hover .icon-set{
+	opacity: 1;
+}
+.content-con .box-left3 .active .icon-list{
+	background-position: -17px -419px;
+	opacity: 1;
+}
+.content-con .box-left3 .active .icon-title{
+	background-position: -444px -19px;
+	opacity: 1;
+}
+.content-con .box-left3 .box-group-press{
+	position: relative;
+}
+.content-con .box-left3 .list-group-press{
+	border: 1px solid #dae1e6;
+	height: 260px;
+}
+.content-con .box-left3 .item-press{
+	float: left; width: calc(100% / 6);
+	height: 65px;
+	position: relative;
+}
+.content-con .box-left3 .link-press{
+	display: block; padding: 23px 0 22px;
+	text-align: center;  height: 20px;
+}
+
+.content-con .box-left3 .line{
+	position: absolute;
+	background-color: #e4e8ed; z-index: 1;
+}
+.content-con .box-left3 .to-bottom1,
+.content-con .box-left3 .to-bottom2,
+.content-con .box-left3 .to-bottom3,
+.content-con .box-left3 .to-bottom4,
+.content-con .box-left3 .to-bottom5{
+	width: 1px; top: 0; bottom: 0;
+}
+
+.content-con .box-left3 .to-bottom1{left:124px;}
+.content-con .box-left3 .to-bottom2{left:248px;}
+.content-con .box-left3 .to-bottom3{left:372px;}
+.content-con .box-left3 .to-bottom4{left:497px;}
+.content-con .box-left3 .to-bottom5{left:622px;}
+.content-con .box-left3 .to-right1,
+.content-con .box-left3 .to-right2,
+.content-con .box-left3 .to-right3{
+	height: 1px; left:0; right:0;
+}
+
+.content-con .box-left3 .to-right1{top:66px;}
+.content-con .box-left3 .to-right2{top:131px;}
+.content-con .box-left3 .to-right3{top:196px;}
+.content-con .box-left3 .box-hover-press{
+	position: absolute; top: 0; left: 0; right: 0;
+	bottom: 0; background-color: #f7f9fa;
+	padding: 19px 0 18px; text-align: center;
+	font-size: 0; line-height: 0; display: none;
+}
+.content-con .box-left3 .item-press:hover .box-hover-press{
+	display: block;
+}
+.content-con .box-left3 .btn-subscribe-press,
+.content-con .box-left3 .link-news-press{
+	display:inline-block; padding: 7px 8px 5px;
+	background-color: #fff; border: 1px solid #dae1e6;
+	font-size: 12px; line-height: 16px;
+	color: #505050; vertical-align: top;
+}
+
+.content-con .box-left3 .btn-subscribe-press+a{
+	margin-left: -1px;
+}
+.content-con .box-left3 .btn-subscribe-press:hover,
+.content-con .box-left3 .link-news-press:hover{
+	border-color: #bec8d8; position: relative;
+}
+.content-con .box-left3 .btn-prev,
+.content-con .box-left3 .btn-next{
+	position: absolute; top: 110px; left: -27px;
+	z-index: 10;
+}
+.content-con .box-left3 .icon-prev,
+.content-con .box-left3 .icon-next{
+	width: 44px; height: 44px; display: inline-block;
+	background-position: 0 -299px;
+}
+.content-con .box-left3 .btn-next{
+	right: -13px; left: auto;
+}
+.content-con .box-left3 .icon-next{
+	background-position: -224px -158px;
 }
 /* 오른쪽 두번째 박스 */
 .content-con .box-right2{
@@ -457,6 +628,26 @@ a{ text-decoration: none; }
 	background-position: -451px -392px;
 }
 
+
+/*오른쪽 3번째 광고*/
+.content-con .box-right3{
+  margin-top: 12px; 
+}
+
+.content-con .box-right3 .link-ad{
+  display: block; line-height: 0px;
+}
+.content-con .box-right3 .img-ad{
+  width: 350px; height: 200px;
+}
+
+
+
+
+
+
+
+
 .footer-con{ height: 1000px; background: purple;}
 
 /* 공용 */
@@ -482,7 +673,10 @@ a{ text-decoration: none; }
 .content-con .box-left2 .link-media::after,
 .content-con .box-right2 .box-stock .rate::before,
 .content-con .box-right2 .box-nav .btn-nav::before,
-.content-con .box-right2 .exchange .name::before{
+.content-con .box-right2 .exchange .name::before,
+.bg-img,
+.bg-omg::after,
+.bg-img::before{
 	background-image: url(https://s.pstatic.net/static/www/img/uit/sp_main_4f8ccb.png);
 	background-size: 457px 434px;
 }
@@ -493,6 +687,7 @@ a{ text-decoration: none; }
 .content-con .box-left2::after,
 .content-con::after,
 .fixed-con::after,
-.content-con .box-right2 .link-timesquare::after{
+.content-con .box-right2 .link-timesquare::after,
+.after::after{
 	clear: both; display: block; content: '';
 }
