@@ -14,7 +14,7 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
-	@RequestMapping(value= {"/main/home","/home.do"})
+	@RequestMapping(value="/")
 	public ModelAndView openTilesView(ModelAndView mv) throws Exception{
     mv.setViewName("/main/home");
     mv.addObject("setHeader", "타일즈");
