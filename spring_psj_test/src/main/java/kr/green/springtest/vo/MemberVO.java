@@ -1,4 +1,4 @@
-package kr.green.sprintest.vo;
+package kr.green.springtest.vo;
 
 import java.util.Date;
 

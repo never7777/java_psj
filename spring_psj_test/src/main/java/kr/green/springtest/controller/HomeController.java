@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.springtest.service.MemberService;
-import kr.green.sprintest.vo.MemberVO;
+import kr.green.springtest.vo.MemberVO;
 
 
 @Controller

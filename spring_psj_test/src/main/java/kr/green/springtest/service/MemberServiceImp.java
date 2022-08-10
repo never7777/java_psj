@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.springtest.dao.MemberDAO;
-import kr.green.sprintest.vo.MemberVO;
+import kr.green.springtest.vo.MemberVO;
 
 @Service
 public class MemberServiceImp implements MemberService {

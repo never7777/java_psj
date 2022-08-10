@@ -1,6 +1,6 @@
 package kr.green.springtest.service;
 
-import kr.green.sprintest.vo.MemberVO;
+import kr.green.springtest.vo.MemberVO;
 
 public interface MemberService {
 
