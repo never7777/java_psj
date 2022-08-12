@@ -24,7 +24,7 @@
 			  <input type="text" class="form-control" name="bd_views" value="${board.bd_views}" readonly>
 			</div>
 			<div class="form-group">
-				<button type="button" class="btn btn-outline-primary up btn-likes">추천</button>
+				<button type="button" class="btn btn-outline-primary up btn-likes" >추천</button>
 				<button type="button" class="btn btn-outline-danger down btn-likes">비추천</button>
 			</div>
 			<div class="form-group">
@@ -48,7 +48,6 @@
 	<script>
 		$(function(){
 			$('.btn-likes').click(function(){
-				
 				let li_state = $(this).hasClass('up') ? 1 : -1;
 				let obj = {
 					li_bd_num : '${board.bd_num}',
@@ -63,24 +62,24 @@
 						return;
 				}
 				$.ajax({
-			    async:true,
-			    type:'POST',
-			    data: JSON.stringify(obj),
-		        url: '<%=request.getContextPath()%>/board/likes',
-			    contentType:"application/json; charset=UTF-8", 
-			    success : function(data){
-			    	if(data == '1')
-			    		alert('해당 게시글을 추천했습니다.')
-						else if(data == '1')
-							alert('해당 게시글을 추천했습니다.')
-						else if(data == '10')
-							alert('해당 게시글 추천을 취소했습니다.')
-						else if(data == '-10')
-							alert('해당 게시글 비추천을 취소했습니다.')	
-			    	else
-			    		alert('잘못된 접근입니다.')
-			    }
-				});
+	        async:true,
+	        type:'POST',
+	        data: JSON.stringify(obj),
+	        url: '<%=request.getContextPath()%>/board/likes',
+	        contentType:"application/json; charset=UTF-8",
+	        success : function(data){
+	        	if(data == '1')
+	        		alert('해당 게시글을 추천했습니다.')
+	        	else if(data == '-1')
+	        		alert('해당 게시글을 비추천했습니다.')
+	        	else if(data == '10')
+	        		alert('해당 게시글 추천을 취소했습니다.')
+	        	else if(data == '-10')
+	        		alert('해당 게시글 비추천을 취소했습니다.')
+	        	else
+	        		alert('잘못된 접근입니다.');
+	        }
+		    });
 			})
 		})
 	</script>

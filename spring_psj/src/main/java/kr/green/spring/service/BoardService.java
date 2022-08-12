@@ -25,4 +25,8 @@ public interface BoardService {
 
 	String updateLikes(LikesVO likes);
 
+	LikesVO getLikes(BoardVO board, MemberVO user);
+
+	
+
 }

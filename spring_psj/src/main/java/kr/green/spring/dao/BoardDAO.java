@@ -25,7 +25,7 @@ public interface BoardDAO {
 	int selectTotalCount(@Param("cri")Criteria cri);
 
 	LikesVO selectLikes(@Param("li")LikesVO likes);
-	
+
 	void insertLikes(@Param("li")LikesVO likes);
 
 	void updateLikes(@Param("li")LikesVO likes);
