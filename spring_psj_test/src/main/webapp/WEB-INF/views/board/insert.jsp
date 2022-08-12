@@ -20,4 +20,4 @@
 		<button class="btn btn-outline-success col-12">게시글 등록</button>
 	</form>
 </body>
-</html> 
+</html>

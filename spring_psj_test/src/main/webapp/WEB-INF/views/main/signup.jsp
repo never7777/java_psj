@@ -7,7 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<form method="post">
 			<h1>회원가입</h1>
 			<div class="form-group">
@@ -46,4 +46,4 @@
 		</form>
 	</div>
 </body>
-</html> 
+</html>

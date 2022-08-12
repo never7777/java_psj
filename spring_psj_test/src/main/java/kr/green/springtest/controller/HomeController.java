@@ -11,7 +11,6 @@ import org.springframework.web.servlet.ModelAndView;
 import kr.green.springtest.service.MemberService;
 import kr.green.springtest.vo.MemberVO;
 
-
 @Controller
 public class HomeController {
 	

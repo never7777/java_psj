@@ -8,7 +8,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="container">
+	<div class="container">
 		<c:if test="${board.bd_del == 'N' }">
 			<h1>게시글 상세</h1>
 			<div class="form-group">
@@ -37,8 +37,9 @@
 			</div>
 			<c:if test="${board.bd_me_id == user.me_id }">
 				<a href="<c:url value="/board/update/${board.bd_num}"></c:url>" class="btn btn-outline-success">수정</a>
+				<a href="<c:url value="/board/delete/${board.bd_num}"></c:url>" class="btn btn-outline-success">삭제</a>
 			</c:if>
-		</c:if>	
+		</c:if>
 		<c:if test="${board.bd_del =='Y' }">
 			<h1>작성자에 의해 삭제된 게시글입니다.</h1>
 		</c:if>
@@ -46,8 +47,5 @@
 			<h1>관리자에 의해 삭제된 게시글입니다.</h1>
 		</c:if>
 	</div>
-</body>
-</html> 
-
 </body>
 </html>

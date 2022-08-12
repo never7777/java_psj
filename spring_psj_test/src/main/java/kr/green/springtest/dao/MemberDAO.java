@@ -10,4 +10,3 @@ public interface MemberDAO {
 
 	public void insertMember(@Param("m")MemberVO member);
 }
-
