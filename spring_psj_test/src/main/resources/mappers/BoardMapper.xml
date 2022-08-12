@@ -25,4 +25,7 @@
 			bd_del = #{b.bd_del}
 			where bd_num = #{b.bd_num}
 	</update>
+	<select id="selectTotalCount" resultType="int">
+		select count(*) from board where bd_del = 'N' 
+	</select>
 </mapper>
