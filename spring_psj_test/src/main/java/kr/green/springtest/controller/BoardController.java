@@ -1,20 +1,25 @@
 package kr.green.springtest.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import kr.green.springtest.pagination.Criteria;
 import kr.green.springtest.pagination.PageMaker;
 import kr.green.springtest.service.BoardService;
 import kr.green.springtest.vo.BoardVO;
+import kr.green.springtest.vo.LikesVO;
 import kr.green.springtest.vo.MemberVO;
 
 @Controller
@@ -22,7 +27,6 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
-
 	
 	@RequestMapping(value="/board/list", method=RequestMethod.GET)
 	public ModelAndView boardListGet(ModelAndView mv, Criteria cri){
@@ -79,5 +83,16 @@ public class BoardController {
 		boardService.deleteBoard(bd_num, user);
     mv.setViewName("redirect:/board/list");
     return mv;
+	}
+	@RequestMapping(value="/check/likes")
+	@ResponseBody
+	public Map<Object,Object> checkLikse(@RequestBody LikesVO likes, 
+			HttpSession session){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		//state : 1, -1, 10, -10, 0
+    String state = boardService.getLikesState(likes, user);
+    map.put("state", state);
+    return map;
 	}
 }
