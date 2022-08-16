@@ -52,4 +52,13 @@ public class MemberServiceImp implements MemberService {
 		return null;
 	}
 
+	@Override
+	public Object idCheck(MemberVO member) {
+		if(member == null || member.getMe_id() == null)
+			return false;
+		if(memberDao.selectMember(member.getMe_id()) != null)
+			return false;
+		return true;
+	}
+
 }
