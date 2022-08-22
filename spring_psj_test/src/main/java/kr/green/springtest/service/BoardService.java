@@ -26,4 +26,5 @@ public interface BoardService {
 	String getLikesState(LikesVO likes, MemberVO user);
 
 	LikesVO getLikes(int bd_num, MemberVO user);
+
 }

@@ -41,9 +41,15 @@ public class BoardController {
 	}
 	@RequestMapping(value="/board/select/{bd_num}", method=RequestMethod.GET)
 	public ModelAndView boardSelectGet(ModelAndView mv,
-			@PathVariable("bd_num")int bd_num){
+			@PathVariable("bd_num")int bd_num, HttpSession session){
 		boardService.updateViews(bd_num);
 		BoardVO board = boardService.getBoard(bd_num);
+		
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		
+		LikesVO likes = boardService.getLikes(bd_num, user);
+		
+		mv.addObject("likes", likes);
 		mv.addObject("board", board);
     mv.setViewName("/board/select");
     return mv;

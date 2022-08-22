@@ -6,14 +6,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://kit.fontawesome.com/f0e6fcefae.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/b1e3c8f87d.js" crossorigin="anonymous"></script>
 <style>
-	.btn-up, .btn-down{
-		border : 1px solid black; color: red
-	}
-	.btn-up.red, .btn-dow.red{
-	background : red; color: white
-	}
+.btn-up, .btn-down{
+	border : 1px solid black; color: red
+}
+.btn-up.red, .btn-down.red{
+	background : red; color : white
+}
 </style>
 </head>
 <body>
@@ -78,6 +78,7 @@
 						li_state : li_state,
 						li_bd_num: li_bd_num
 				}
+
 				$.ajax({
 		      async:false,
 		      type:'POST',

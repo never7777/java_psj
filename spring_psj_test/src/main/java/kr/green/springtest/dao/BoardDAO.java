@@ -29,4 +29,5 @@ public interface BoardDAO {
 	void updateLikes(@Param("li")LikesVO dbLikes);
 
 	void updateBoardLikes(@Param("bd_num")int li_bd_num);
+
 }
