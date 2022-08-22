@@ -5,6 +5,14 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.alert{
+	position:fixed; top:0; le<ft:0; right:0; botton:0; 
+	background:raba(0,0,0,0.3); kubw-height: 100vh; font-size: 40px; 
+	text-align:conter; color: #fff
+	}
+</style>
+
 </head>
 <body>
 <div class="container">
@@ -40,6 +48,9 @@
       <button class="btn btn-success col-12 btn-find-pw">비번 찾기</button>
     </div>
   </div>
+</div>
+<div class="alert">
+	 확인중입니다.
 </div>
 <script type="text/javascript">
 $(function(){
@@ -102,6 +113,8 @@ $(function(){
 			$('#pw [name=me_email]').focus();
 			return;
 		}
+		var str = '<div class="alert" > 확인중입니다. </div>';
+		$('.container').after(str);
 		$.ajax({
       async:true,
       type:'POST',
@@ -110,7 +123,15 @@ $(function(){
       dataType:"json", 
       contentType:"application/json; charset=UTF-8",
       success : function(data){
-    	  console.log(data)
+    	  $('.alert').remove();
+    	  if(data.res){
+    		  alert('메일로 새 비밀번호를 전송했습니다. 확인하세요')
+    	  }else{
+    		  alert('입력한 정보가 잘못됐거나 없는 회원 정보입니다.')
+    	  }
+    	  if(data.exception){
+    		  alert('서버문제입니다. 전화로 문의해주세요')
+    	  }
       }
     });
 	})
