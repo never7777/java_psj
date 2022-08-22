@@ -16,7 +16,7 @@ public class Criteria {
 	private String searchType;
 	
 	private String column;
-	
+
 	private String orderBy;
 	
 	/* 쿼리문에서 limit에 사용되는 인덱스를 계산하는 getter */

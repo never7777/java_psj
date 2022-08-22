@@ -15,7 +15,7 @@ public class RedirectInterceptor extends HandlerInterceptorAdapter {
 			throws Exception {
 		HttpSession session = request.getSession();
 		Object user = session.getAttribute("user");
-		
+
 		String redirectURL = (String)session.getAttribute("redirectURL");
 		if(user != null && redirectURL != null) {
 			response.sendRedirect(redirectURL);

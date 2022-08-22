@@ -1,14 +1,18 @@
 package kr.green.spring.service;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import kr.green.spring.dao.BoardDAO;
 import kr.green.spring.pagination.Criteria;
+import kr.green.spring.utils.UploadFileUtils;
 import kr.green.spring.vo.BoardVO;
 import kr.green.spring.vo.CommentVO;
+import kr.green.spring.vo.FileVO;
 import kr.green.spring.vo.LikesVO;
 import kr.green.spring.vo.MemberVO;
 
@@ -17,9 +21,11 @@ public class BoardServiceImp implements BoardService {
 
 	@Autowired
 	BoardDAO boardDao;
+	
+	private String uploadPath = "D:\\git\\uploadfiles";
 
 	@Override
-	public void insertBoard(BoardVO board, MemberVO user) {
+	public void insertBoard(BoardVO board, MemberVO user, MultipartFile[] files) {
 		if(board == null || board.getBd_title() == null || board.getBd_content() == null)
 			return;
 		//제목에 공백만 있는 경우
@@ -32,9 +38,15 @@ public class BoardServiceImp implements BoardService {
 		if(user == null || user.getMe_id() == null)
 			return;
 		
+		//답글인 경우 순서를 업데이트
+		if(board.getBd_ori_num() != 0)
+			boardDao.updateBoardOrder(board);
+		
 		//게시글 작성자로 회원 아이디를 저장
 		board.setBd_me_id(user.getMe_id());
 		boardDao.insertBoard(board);
+		//첨부파일 작업
+		insertFileVO(files, board.getBd_num());
 	}
 
 	@Override
@@ -59,7 +71,7 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public void updateBoard(BoardVO board, MemberVO user) {
+	public void updateBoard(BoardVO board, MemberVO user, MultipartFile[] files, int[] delFiles) {
 		if(user == null)
 			return;
 		
@@ -81,6 +93,19 @@ public class BoardServiceImp implements BoardService {
 		
 		boardDao.updateBoard(board);
 		
+		//첨부파일 수정
+		//새 첨부파일들을 등록
+		insertFileVO(files, board.getBd_num());
+		
+		//기존 첨부파일들을 제거
+		if(delFiles == null || delFiles.length == 0)
+			return;
+		for(int fi_num : delFiles) {
+			//첨부파일 정보 가져옴
+			FileVO fileVo = boardDao.selectFile(fi_num); 
+			//삭제
+			deleteFileVO(fileVo);
+		}
 	}
 
 	@Override
@@ -102,6 +127,15 @@ public class BoardServiceImp implements BoardService {
 		if(user.getMe_authority() == 10)
 			del = 'A';
 		boardDao.deleteBoard(bd_num, del);
+		
+		//첨부파일들을 가져옴
+		ArrayList<FileVO> fileList = boardDao.selectFileList(bd_num);
+		if(fileList == null || fileList.size() == 0)
+			return;
+		//가져온 첨부파일들을 반복문을 이용하여 서버에서 삭제 후, DB에서 삭제처리
+		for(FileVO file : fileList) {
+			deleteFileVO(file);
+		}
 	}
 
 	@Override
@@ -113,29 +147,29 @@ public class BoardServiceImp implements BoardService {
 
 	@Override
 	public String updateLikes(LikesVO likes) {
-	try {
 		if(likes == null)
 			return "";
 		//조회 => 로그인한 사용자가 해당 게시물에 한 추천/비추천 정보를 가져옴
 		LikesVO dbLikes = boardDao.selectLikes(likes);
-		//해당 게시물에 추천/비추번이 처음이면 insert
-		if(dbLikes == null) {
-			boardDao.insertLikes(likes);
-			return ""+likes.getLi_state();
-		//이전 한적이 있으면 update
-		}else {
+		try {
+			//해당 게시물에 추천/비추천이 처음이면 insert
+			if(dbLikes == null) {
+				boardDao.insertLikes(likes);
+				return ""+likes.getLi_state();
+			//이전 한적이 있으면 update
+			}else {
 				//이전 추천/비추천 상태와 현재 추천/비추천 상태가 다른 경우
-				//이전 추천=>현재 비추천, 이전 비추천 => 현재 추천
+				//이전 추천=> 현재 비추천, 이전 비추천=> 현재 추천
 				if(dbLikes.getLi_state() != likes.getLi_state()) {
 					dbLikes.setLi_state(likes.getLi_state());
 				}
 				//이전 추천/비추천 상태가 현재와 같은 경우 => 상태가 0
-				//이천 추천=> 현재 추천, 이전 비추천=> 현재 비추천
+				//이전 추천=> 현재 추천, 이전 비추천=> 현재 비추천
 				else {
-				dbLikes.setLi_state(0);
+					dbLikes.setLi_state(0);
 				}
 				boardDao.updateLikes(dbLikes);
-				return likes.getLi_state()+(dbLikes.getLi_state() == 0 ? "0" : "");// -10, 10
+				return likes.getLi_state()+(dbLikes.getLi_state() == 0 ? "0" : "");//-10, 10
 			}
 		}catch(Exception e) {}
 		finally {
@@ -169,6 +203,9 @@ public class BoardServiceImp implements BoardService {
 		if( board == null || board.getBd_del() != 'N')
 			return "잘못된 게시글입니다. 댓글을 작성할 수 없습니다.";
 		
+		if(comment.getCo_ori_num() != 0)
+			boardDao.updateCommentOrder(comment);
+		
 		comment.setCo_me_id(user.getMe_id());
 		boardDao.insertComment(comment);
 			
@@ -191,14 +228,14 @@ public class BoardServiceImp implements BoardService {
 	public boolean deleteComment(CommentVO comment, MemberVO user) {
 		if(comment == null || user == null)
 			return false;
-
+		
 		//로그인한 사용자가 작성한 댓글인지 아닌지 확인하는 작업
 		CommentVO dbComment = boardDao.selectComment(comment.getCo_num());
 		if(dbComment == null || !dbComment.getCo_me_id().equals(user.getMe_id()))
 			return false;
-
+		
 		boardDao.deleteComment(comment.getCo_num());
-
+		
 		return true;
 	}
 
@@ -215,5 +252,40 @@ public class BoardServiceImp implements BoardService {
 		boardDao.updateComment(comment);
 		
 		return true;
+	}
+
+	@Override
+	public ArrayList<FileVO> getFileList(Integer bd_num) {
+		if(bd_num == null)
+			return null;
+		return boardDao.selectFileList(bd_num);
+	}
+	
+	private void deleteFileVO(FileVO file) {
+		if(file == null)
+			return;
+		UploadFileUtils.deleteFile(uploadPath, file.getFi_name());
+		boardDao.deleteFile(file.getFi_num());
+	}
+	private void insertFileVO(MultipartFile[] files, int bd_num) {
+		if(files == null || files.length == 0)
+			return;
+		for(MultipartFile file : files) {
+			if(file == null)
+				continue;
+			
+			String fi_ori_name = file.getOriginalFilename();
+			if(fi_ori_name.length() == 0)
+				continue;
+			
+			try {
+				String fi_name = UploadFileUtils.uploadFile(uploadPath, fi_ori_name, file.getBytes());
+				FileVO fileVo = new FileVO(fi_name, fi_ori_name, bd_num);
+				boardDao.insertFile(fileVo);
+			}catch (Exception e) {
+				e.printStackTrace();
+			}
+			
+		}
 	}
 }

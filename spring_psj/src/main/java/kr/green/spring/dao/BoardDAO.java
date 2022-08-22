@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.green.spring.pagination.Criteria;
 import kr.green.spring.vo.BoardVO;
 import kr.green.spring.vo.CommentVO;
+import kr.green.spring.vo.FileVO;
 import kr.green.spring.vo.LikesVO;
 
 public interface BoardDAO {
@@ -38,11 +39,23 @@ public interface BoardDAO {
 	ArrayList<CommentVO> selectCommentList(@Param("co_bd_num")int co_bd_num, @Param("cri")Criteria cri);
 
 	int selectTotalCountComment(@Param("co_bd_num")int co_bd_num);
-	
+
 	CommentVO selectComment(@Param("co_num")int co_num);
 
 	void deleteComment(@Param("co_num")int co_num);
 
 	void updateComment(@Param("co")CommentVO comment);
+
+	void updateBoardOrder(@Param("bo")BoardVO board);
+
+	void updateCommentOrder(@Param("co")CommentVO comment);
+
+	void insertFile(@Param("fi")FileVO fileVo);
+
+	ArrayList<FileVO> selectFileList(@Param("bd_num")Integer bd_num);
+
+	void deleteFile(@Param("fi_num")int fi_num);
+
+	FileVO selectFile(@Param("fi_num")int fi_num);
 
 }

@@ -32,7 +32,15 @@
 			<div class="form-group">
 			  <textarea class="form-control" rows="10" name="bd_content" readonly>${board.bd_content}</textarea>
 			</div>
-			
+			<div class="form-group">
+			  <label>첨부파일</label>
+			  <c:if test="${fileList.size() == 0 }">없음</c:if>
+			  <c:if test="${fileList.size() != 0 }">
+			  	<c:forEach items="${fileList}" var="file">
+				  	<a href="<c:url value="/file${file.fi_name}"></c:url>" class="form-control" download="${file.fi_ori_name}">${file.fi_ori_name}</a>
+			  	</c:forEach>
+			  </c:if>
+			</div>
 			<div class="list-comment">
 				<div class="item-comment">
 					<div class="co_me_id">작성자</div>
@@ -50,6 +58,9 @@
 			<c:if test="${user != null && user.me_id == board.bd_me_id }">
 				<a href="<%=request.getContextPath()%>/board/update/${board.bd_num}" class="btn btn-outline-danger">수정</a>
 				<a href="<%=request.getContextPath()%>/board/delete/${board.bd_num}" class="btn btn-outline-danger">삭제</a>
+			</c:if>
+			<c:if test="${user.me_id != board.bd_me_id }">
+				<a href="<%=request.getContextPath()%>/board/insert?bd_ori_num=${board.bd_ori_num}&bd_depth=${board.bd_depth}&bd_order=${board.bd_order}" class="btn btn-outline-danger">답글</a>
 			</c:if>
 		</c:if>
 		<c:if test="${board != null && 'A'.charAt(0) ==board.bd_del }">
@@ -70,6 +81,7 @@
 	let bd_num = '${board.bd_num}'
 	$(function(){
 		$('.btn-likes').click(function(){
+
 			let li_state = $(this).hasClass('up') ? 1 : -1;
 			let obj = {
 				li_bd_num : '${board.bd_num}',
@@ -110,6 +122,7 @@
 	})
 	
 	$(function(){
+		//댓글 등록 버튼 클릭
 		$('.btn-comment-insert').click(function(){
 			let co_content = $('[name=co_content]').val();
 			let co_bd_num = '${board.bd_num}';
@@ -120,6 +133,7 @@
 					return;
 				}
 			}
+			
 			
 			let obj = {
 					co_content : co_content,
@@ -141,6 +155,7 @@
 	})
 	
 	$(function(){
+		//댓글 삭제 버튼 클릭
 		$(document).on('click','.btn-comment-delete',function(){
 			let co_num = $(this).siblings('[name=co_num]').val()
 			let obj ={
@@ -168,16 +183,18 @@
 	$(function(){
 		//수정 버튼 클릭
 		$(document).on('click', '.btn-comment-update', function(){
-			$('.btn-comment-update-cancle').click();
+			$('.btn-comment-update-cancel').click();
+			$('.btn-cancel-reply').click();
 			//기존 댓글 내용이 입력창으로 바뀌어야 함
 			let co_content = $(this).siblings('.co_content').text();
 			let str = '<textarea class="co_content2">'+co_content+'</textarea>';
 			$(this).siblings('.co_content').after(str);
 			$(this).siblings('.co_content').hide();
-			$(this).hide();
-			$(this).siblings('.btn-comment-delete').hide();
+			$(this).hide();//수정버튼 감춤
+			$(this).siblings('.btn-comment-delete').hide();//삭제버튼 감춤
+			$(this).siblings('.btn-comment-reply').hide();//답글버튼 갑춤
 			str = '<button class="btn-comment-update-complete">수정완료</button>'
-			str += '<button class="btn-comment-update-cancle">취소</button>';
+			str += '<button class="btn-comment-update-cancel">취소</button>';
 			$(this).parent().append(str);
 		})
 		//수정 완료 버튼 클릭
@@ -206,15 +223,75 @@
 			})
 		})
 		//수정버튼 클릭 후 생기는 취소버튼 클릭
-		$(document).on('click', '.btn-comment-update-cancle', function(){
+		$(document).on('click', '.btn-comment-update-cancel', function(){
 			//기존 댓글 내용이 입력창으로 바뀌어야 함
 			$(this).siblings('.co_content').show();
 			$(this).siblings('.co_content2').remove();
-			$(this).siblings('.btn-comment-update').show();
-			$(this).siblings('.btn-comment-delete').show();
-			$('.btn-comment-update-cancle').remove();
+			$(this).siblings('.btn-comment-update').show();//수정버튼 보임
+			$(this).siblings('.btn-comment-delete').show();//삭제버튼 보임
+			$(this).siblings('.btn-comment-reply').show();//답글버튼 보임
+			$('.btn-comment-update-cancel').remove();
 			$('.btn-comment-update-complete').remove();
 		})
+		//답글버튼 클릭
+		$(document).on('click', '.btn-comment-reply', function(){
+			let id = '${user.me_id}';
+			if(id == ''){
+				if(confirm('댓글 답글은 로그인을 해야 합니다. 로그인을 하시겠습니까?')){
+					location.href = '<%=request.getContextPath()%>/login'
+					return;
+				}
+			}
+			//답글을 누른 댓글에만 답글을 입력하는 창이 나오게 하기 위해 모든 답글취소버튼을 클릭해서 없애줌
+			$('.btn-cancel-reply').click();
+			$('.btn-comment-update-cancel').click();
+			let str = '<br><textarea class="co_content_reply"></textarea><br>';
+			str += '<button class="btn-insert-reply">답글 등록</button>'
+				str += '<button class="btn-cancel-reply">답글 취소</button>'
+			$(this).after(str);
+			$(this).hide();//답변버튼 감춤
+			$(this).siblings('.btn-comment-update').hide();//수정버튼 감춤
+			$(this).siblings('.btn-comment-delete').hide();//삭제버튼 감춤
+		})
+		//답글 등록버튼 클릭
+		$(document).on('click', '.btn-insert-reply', function(){
+			//co_ori_num, co_depth, co_order
+			let co_ori_num = $(this).siblings('[name=co_ori_num]').val();
+			let co_depth = $(this).siblings('[name=co_depth]').val();
+			let co_order = $(this).siblings('[name=co_order]').val();
+			let co_content = $(this).siblings('.co_content_reply').val();
+			let co_bd_num = '${board.bd_num}';
+			let obj = {
+					co_ori_num : co_ori_num, 
+					co_depth : co_depth,
+					co_order : co_order,
+					co_content : co_content,
+					co_bd_num : co_bd_num
+			}
+			
+			$.ajax({
+		    async: true,
+		    type:'POST',
+		    data: JSON.stringify(obj),
+		    url: '<%=request.getContextPath()%>/ajax/comment/insert',
+		    dataType:"json", 
+		    contentType:"application/json; charset=UTF-8",
+		    success : function(data){
+		    	alert(data.res);
+		    	getCommentList(criteria, bd_num);
+		    }
+		  });
+		})
+		//답글취소버튼 클릭
+		$(document).on('click', '.btn-cancel-reply', function(){
+			$(this).siblings('.co_content_reply').remove();
+			$(this).siblings('.btn-insert-reply').remove();
+			$(this).siblings('br').remove();
+			$(this).siblings('.btn-comment-reply').show();//답글 보임
+			$(this).siblings('.btn-comment-update').show();//수정버튼 보임
+			$(this).siblings('.btn-comment-delete').show();//삭제버튼 보임
+			$(this).remove();
+		});
 	})
 	
 	
@@ -228,20 +305,30 @@
 	    dataType:"json", 
 	    contentType:"application/json; charset=UTF-8",
 	    success : function(data){
+
 	    	let str = '';
 	    	for( co of data.list){
 		    	str += 
 		    	'<div class="item-comment">' + 
 						'<div class="co_me_id"><b>'+co.co_me_id+'</b></div>' + 
-						'<div class="co_content">'+co.co_content+'</div>' + 
+						'<div class="co_content">'
+						for(i = 2; i<=co.co_depth; i++)
+							str += '└';
+					
+						str +=	
+							co.co_content+'</div>' +
 						'<div class="co_reg_date">'+co.co_reg_date_str+'</div>' +
-						'<input value="'+co.co_num+'" name="co_num" type="hidden">';
+						'<input value="'+co.co_num+'" name="co_num" type="hidden">'+
+						'<input value="'+co.co_ori_num+'" name="co_ori_num" type="hidden">'+
+						'<input value="'+co.co_depth+'" name="co_depth" type="hidden">'+
+						'<input value="'+co.co_order+'" name="co_order" type="hidden">';
 						if(co.co_me_id == '${user.me_id}'){
 							str +=
 							'<button class="btn-comment-delete">삭제</button>' +
 							'<button class="btn-comment-update">수정</button>';
 						}
 					str +=
+						'<button class="btn-comment-reply">답글</button>'+
 					'</div>'
 	    	}
 	    	$('.list-comment').html(str);

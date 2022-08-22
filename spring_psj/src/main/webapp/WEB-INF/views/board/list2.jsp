@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<script src="https://kit.fontawesome.com/f0e6fcefae.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/b1e3c8f87d.js" crossorigin="anonymous"></script>
 <style>
 .sort i{
 	display: none; cursor: pointer;
@@ -128,6 +128,8 @@ $(function(){
 		}
 	})
 })
+
+
 function getBoardList(cri){
 	$.ajax({
     async: true,
@@ -161,20 +163,20 @@ function getBoardList(cri){
     	if(pm.prev){
     		pmStr +=
       	'<li class="page-item">' +
-      		'<a class="page-link" href="javascript:0;" onclick="criteria.page = '+(pm.statrPage-1)+';getBoardList(criteria)">이전</a>' +
+      		'<a class="page-link" href="javascript:0;" onclick="criteria.page='+(pm.statrPage-1)+';getBoardList(criteria)">이전</a>' +
       	'</li>';
     	}
       for(let i = pm.startPage; i<=pm.endPage; i++){
     	  let active = pm.cri.page == i ? 'active' : '';
     	  pmStr +=
       	'<li class="page-item '+active+'">'+
-      		'<a class="page-link" href="javascript:0;" onclick= criteria.page = '+(i)+';getBoardList(criteria)">'+ i +'</a>'+
+      		'<a class="page-link" href="javascript:0;" onclick="criteria.page='+(i)+';getBoardList(criteria)">'+ i +'</a>'+
       	'</li>';
       }
       if(pm.next){
     	  pmStr +=
       	'<li class="page-item">' + 
-      		'<a class="page-link" href="javascript:0;" onclick="criteria.page = '+(pm.statrPage+1)+';getBoardList(criteria)">다음</a>' + 
+      		'<a class="page-link" href="javascript:0;" onclick="criteria.page='+(pm.endPage+1)+';getBoardList(criteria)">다음</a>' + 
       	'</li>';
       }
       $('.pagination').html(pmStr);
