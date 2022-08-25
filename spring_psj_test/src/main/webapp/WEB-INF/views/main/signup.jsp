@@ -13,7 +13,6 @@
 			<div class="form-group">
 			  <label for="me_id">아이디:</label>
 			  <input type="text" class="form-control" id="me_id" name="me_id">
-			  
 			</div>
 			<button class="btn btn-outline-success col-12" type="button" id="idCheck">아이디 중복 확인</button>
 			<div class="form-group">

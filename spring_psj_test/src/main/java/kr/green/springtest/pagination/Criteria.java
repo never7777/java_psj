@@ -4,6 +4,7 @@ import lombok.Data;
 
 @Data
 public class Criteria {
+
 	private int page; 
 	private int perPageNum;
 	private String search;
@@ -14,9 +15,8 @@ public class Criteria {
 		search = "";
 		searchType = "all";
 	}
-
+	
 	public int getPageStart() {
 		return (this.page -1) * perPageNum;
 	}
 }
-	
