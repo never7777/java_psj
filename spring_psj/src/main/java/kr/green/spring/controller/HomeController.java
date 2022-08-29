@@ -145,7 +145,7 @@ public class HomeController {
 	@ResponseBody
 	public Map<Object,Object> findPw(@RequestBody MemberVO member){
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
-		//memberService.sendEmail("제목", "내용", "76really@gmail.com");
+		//memberService.sendEmail("제목", "내용", "stajun@naver.com");
 		boolean res = false;
 		boolean exception = false;
 		try {
@@ -156,5 +156,18 @@ public class HomeController {
 		map.put("res", res);
 		map.put("exception", exception);
 		return map;
+	}
+	@RequestMapping(value="/user/update", method=RequestMethod.GET)
+	public ModelAndView userUpdateGet(ModelAndView mv) {
+		mv.setViewName("/main/update");
+		return mv;
+	}
+	@RequestMapping(value="/user/update", method=RequestMethod.POST)
+	public ModelAndView userUpdatePost(ModelAndView mv,MemberVO member, 
+			HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		memberService.updateMember(member,user);
+		mv.setViewName("/main/update");
+		return mv;
 	}
 }
