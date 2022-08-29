@@ -93,4 +93,21 @@ public class HomeController {
     map.put("id", id);
     return map;
 	}
+	/*
+	@RequestMapping(value="/ajax/find/pw")
+	@ResponseBody
+	public Map<Object,Object> findPw(@RequestBody MemberVO member){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		System.out.println(member);
+    return map;
+    */
+	
+	@RequestMapping(value="/ajax/find/pw")
+	@ResponseBody
+	public Map<Object,Object> findPw(@RequestBody MemberVO member){
+		HashMap<Object, Object> map = new HashMap<Object, Object>();
+		boolean res = memberService.findPw(member);
+		map.put("res", res);
+    return map;
+	}
 }
