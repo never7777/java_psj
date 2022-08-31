@@ -15,6 +15,8 @@
 	color : red;
 }
 </style>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-bs4.min.js"></script>
 </head>
 <body>
 <c:if test="${board.bd_del == 'N' }">
@@ -57,6 +59,35 @@
 			$(this).parents('.form-group').append(str2);
 			$(this).parent().remove();
 		})
+		
+		$('#bd_content').summernote({
+		    placeholder: 'Hello Bootstrap 4',
+		    tabsize: 2,
+		    height: 400,
+		    callbacks: {
+					onImageUpload: function(files) {
+						if(files == null || files.length == 0)
+							return;
+						for(file of files){
+							let data = new FormData();
+							data.append('file', file);
+							let thisObj = $(this)
+							$.ajax({
+								data : data,
+								type : 'post',
+								url : '<%=request.getContextPath()%>/board/img/upload',
+								contentType : false,
+								processData : false,
+								dataType: "json",
+								success : function(data){
+									let url = '<%=request.getContextPath()%>/simg' + data.url;
+									thisObj.summernote('insertImage', url);		
+								}
+							});
+						}
+					}
+		    }
+		 	});
 	})
 </script>
 </body>
