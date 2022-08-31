@@ -89,20 +89,10 @@ public class HomeController {
 	@ResponseBody
 	public Map<Object,Object> findId(@RequestBody MemberVO member){
 		HashMap<Object, Object> map = new HashMap<Object, Object>();
-		System.out.println(member);
     String id = memberService.getId(member);
     map.put("id", id);
     return map;
 	}
-	/*
-	@RequestMapping(value="/ajax/find/pw")
-	@ResponseBody
-	public Map<Object,Object> findPw(@RequestBody MemberVO member){
-		HashMap<Object, Object> map = new HashMap<Object, Object>();
-		System.out.println(member);
-    return map;
-    */
-	
 	@RequestMapping(value="/ajax/find/pw")
 	@ResponseBody
 	public Map<Object,Object> findPw(@RequestBody MemberVO member){
@@ -114,7 +104,7 @@ public class HomeController {
 	
 	@RequestMapping(value="/member/update", method=RequestMethod.GET)
 	public ModelAndView memberUpdateGet(ModelAndView mv){
-
+		
     mv.setViewName("/main/update");
     return mv;
 	}

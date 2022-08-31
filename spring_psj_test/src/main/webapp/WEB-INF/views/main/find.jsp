@@ -94,9 +94,10 @@
 					me_email : me_email,
 					me_birth : me_birth
 			}
-			ajaxPost(false, obj, '/ajax/find/pw ', function(data){
+
+			ajaxPost(false, obj, '/ajax/find/pw', function(data){
 				if(data.res){
-					alert('입력한 이메일로 새 비밀번호를 발송했습니다..')
+					alert('입력한 이메일로 새 비밀번호를 발송했습니다.')
 				}else{
 					alert('없는 정보입니다.')
 				}

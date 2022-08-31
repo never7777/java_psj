@@ -219,7 +219,8 @@
 	    <artifactId>commons-fileupload</artifactId>
 	    <version>1.3.2</version>
 		</dependency>
-		<!-- pom.xml -->
+		
+		<!-- 메일보내기 -->
 		<dependency>
 	    <groupId>org.springframework</groupId>
 	    <artifactId>spring-context-support</artifactId>
@@ -230,6 +231,7 @@
 	    <artifactId>mail</artifactId>
 	    <version>1.4.3</version>
 		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

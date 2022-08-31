@@ -80,32 +80,32 @@ public class MemberServiceImp implements MemberService {
 		if(member== null || member.getMe_email() == null 
 				|| member.getMe_birth() == null)
 			return false;
-
+		
 		String id = memberDao.selectId(member);
-
+		
 		if(id == null)
 			return false;
-
+		
 		MemberVO user = memberDao.selectMember(id);
-
+		
 		String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 		String newPw = "";
-
+		
 		for(int i = 0; i<8; i++) {
 			int r = (int)(Math.random()*str.length());
 			newPw += str.charAt(r);
 		}
-
+		
 		String encPw = passwordEncoder.encode(newPw);
 		user.setMe_pw(encPw);
 		memberDao.updateMember(user);
-
+		
 		String title = "새 비밀번호가 발급됐습니다.";
 		String content = "새 비밀번호는 <br>" + newPw + "</br> 입니다.";
-
+		
 		return sendEmail(user.getMe_email(), title, content);
 	}
-
+	
 	public boolean sendEmail(String to, String title, String content) {
 		try {
       MimeMessage message = mailSender.createMimeMessage();
@@ -132,15 +132,15 @@ public class MemberServiceImp implements MemberService {
 		user.setMe_birth(member.getMe_birth());
 		user.setMe_gender(member.getMe_gender());
 		user.setMe_email(member.getMe_email());
-
+		
 		if(member.getMe_pw()!=null && member.getMe_pw().length() != 0) {
 			String encPw = passwordEncoder.encode(member.getMe_pw());
 			user.setMe_pw(encPw);
 		}
-
+		
 		if(member.getMe_authority() != 0)
 			user.setMe_authority(member.getMe_authority());
-
+		
 		memberDao.updateMember(user);
 		return true;
 	}

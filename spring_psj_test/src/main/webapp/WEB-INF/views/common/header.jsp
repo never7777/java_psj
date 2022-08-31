@@ -18,9 +18,9 @@
 	      	</li>
       	</c:if>
       	<c:if test="${user != null }">
-      		<li class="nav-item">
+	      	<li class="nav-item">
 	        	<a class="nav-link" href="<c:url value="/member/update"></c:url>">회원정보수정</a>
-	      	</li> 
+	      	</li>
 	      	<li class="nav-item">
 	        	<a class="nav-link" href="<c:url value="/logout"></c:url>">로그아웃</a>
 	      	</li> 
