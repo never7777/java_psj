@@ -16,9 +16,8 @@ public class MemberServiceImp implements MemberService{
 	public boolean signup(MemberVO member) {
 		if(member == null)
 			return false;
-		
-		String str = "abcdefghijklmnopqrstuvwxynzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-		String me_code = createRandom(str,6);
+		String str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		String me_code = createRandom(str, 6);
 		member.setMe_code(me_code);
 		//DB에 member정보를 추가
 		try {
@@ -27,21 +26,32 @@ public class MemberServiceImp implements MemberService{
 			e.printStackTrace();
 			return false;
 		}
-		//메일로 링크를 보내줌 
+		//메일로 링크를 보내줌
 		
 		return true;
 	}
 
 	private String createRandom(String str, int count) {
-		
-		String randomStr="";
+		if(str == null)
+			return "";
+		String randomStr = "";
 		
 		for(int i = 0; i<count; i++) {
-			int r = (int)(Math.random() * str.length());
+			int r = (int)(Math.random()*str.length());
 			randomStr += str.charAt(r);
 		}
 		return randomStr;
 	}
 
- 
+	@Override
+	public boolean isUser(MemberVO member) {
+		if(member == null || member.getMe_email() == null)
+			return false;
+		MemberVO dbMember = memberDao.selectMember(member.getMe_email());
+		if(dbMember != null)
+			return false;
+		return true;
+	}
+
+	
 }
