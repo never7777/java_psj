@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.book.dao.MemberDAO;
+import kr.green.book.vo.MemberVO;
 
 @Service
 public class MemberServiceImp implements MemberService{
@@ -11,9 +12,22 @@ public class MemberServiceImp implements MemberService{
 	MemberDAO memberDao;
 	
 	@Override
-	public String getEmail(String us_id) {
+	public boolean signup(MemberVO member) {
+		if(member == null)
+			return false;
+			
+		if(member.getMe_id() == null || member.getMe_pw() == null ||
+			 member.getMe_name() == null || member.getMe_email() == null || 
+			 member.getMe_phone() == null || member.getMe_extend_years() == null)
+			return false;
 		
-		return memberDao.getEmail(us_id);
+		MemberVO dbMember = memberDao.selectMember(member.getMe_id());
+			
+		if(dbMember != null)
+			return false;
+		
+		memberDao.insertMember(member);
+		return true;
 	}
 
 }

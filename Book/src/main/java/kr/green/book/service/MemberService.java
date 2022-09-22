@@ -1,5 +1,7 @@
 package kr.green.book.service;
 
+import kr.green.book.vo.MemberVO;
+
 public interface MemberService {
-	public String getEmail(String us_id);
+	public boolean signup(MemberVO member);
 }
