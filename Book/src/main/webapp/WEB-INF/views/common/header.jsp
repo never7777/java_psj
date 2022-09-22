@@ -81,6 +81,11 @@
 	          <li>로그인</li>
 	        </a>
         </c:if>
+        <c:if test="${user != null}">
+	       	<a href="<c:url value="/logout"></c:url>">
+	          <li>로그아웃</li>
+	        </a>
+	      </c:if> 
       </ul>
     </div>
     <!-- 장바구니 아이콘 -->
