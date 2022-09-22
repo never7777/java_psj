@@ -73,12 +73,14 @@
   <div class="right-box">
     <div class="login-signup">
       <ul>
-        <a href="<c:url value="/signup"></c:url>">
-          <li>회원가입</li>
-        </a>
-        <a href="#">
-          <li>로그인</li>
-        </a>
+	      <c:if test="${user == null}">
+	        <a href="<c:url value="/signup"></c:url>">
+	          <li>회원가입</li>
+	        </a>
+	        <a href="<c:url value="/login"></c:url>">
+	          <li>로그인</li>
+	        </a>
+        </c:if>
       </ul>
     </div>
     <!-- 장바구니 아이콘 -->

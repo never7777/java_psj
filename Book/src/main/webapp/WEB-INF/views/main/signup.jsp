@@ -18,8 +18,8 @@
         margin: auto;
         display: block;
         background-size: 100% 100%;
-        
       }
+      
       .form-group{
         width: 400px;
       }
