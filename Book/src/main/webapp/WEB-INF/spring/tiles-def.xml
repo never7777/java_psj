@@ -10,11 +10,20 @@
       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
  
-    <!-- (2)헤더를적용하지않는 화면) -->
+
+    <!-- (2)헤더를 적용하지않는 화면) -->
    	<definition name="/noheader/*/*" template="/WEB-INF/views/layout/noHeaderLayout.jsp">      
       <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
       <put-attribute name="footer" value="/WEB-INF/views/common/footer.jsp" />
     </definition>
+    
+    <!-- (3)관리자 헤더를 적용한 화면) -->
+   	<definition name="/adminheader/*/*" template="/WEB-INF/views/layout/adminLayout.jsp">      
+      <put-attribute name="adminHerder" value="/WEB-INF/views/common/adminHerder.jsp" />
+      <put-attribute name="body" value="/WEB-INF/views/{1}/{2}.jsp" />
+    </definition>
+    
+    
     
     <!-- (1) -->
    	<definition name="/*/*" extends=".root">      

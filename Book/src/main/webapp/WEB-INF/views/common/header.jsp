@@ -86,6 +86,11 @@
 	          <li>로그아웃</li>
 	        </a>
 	      </c:if> 
+	      <c:if test="${user != null && user.me_authority == 10}">
+	      	<a href="<c:url value="/admin"></c:url>">
+	          <li>관리자 페이지</li>
+	        </a>
+	      </c:if>
       </ul>
     </div>
     <!-- 장바구니 아이콘 -->
@@ -97,40 +102,22 @@
   
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <ul class="navbar-nav">
-    <li class="nav-item active">
+    <li class="nav-item">
+      <a class="nav-link" href="#" data-toggle="dropdown">도서</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="#" data-toggle="dropdown">국내도서</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Link 1</a>
-        <a class="dropdown-item" href="#">Link 2</a>
-        <a class="dropdown-item" href="#">Link 3</a>
-      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#" data-toggle="dropdown">외국도서</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Link 1</a>
-        <a class="dropdown-item" href="#">Link 2</a>
-        <a class="dropdown-item" href="#">Link 3</a>
-      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#" data-toggle="dropdown">ebook</a>
-      <div class="dropdown-menu">
-        <a class="dropdown-item" href="#">Link 1</a>
-        <a class="dropdown-item" href="#">Link 2</a>
-        <a class="dropdown-item" href="#">Link 3</a>
-      </div>
     </li>
     <li class="nav-item">
       <a class="nav-link disabled" href="#">Disabled</a>
     </li>
   </ul>
 </nav>
-
-	
-
-
-
-
 </body>
 </html>
