@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import kr.green.book.dao.CategoryDAO;
+import kr.green.book.vo.CategoryDTO;
 import kr.green.book.vo.CategoryVO;
 
 @Service
@@ -32,13 +33,16 @@ public class CategoryServiceImp implements CategoryService{
 		return true;
 	}
 
-	@Override
-	public ArrayList<CategoryVO> getLargeCategoryList() {
-		return categoryDao.getLargeCategoryList();
-	}
+
 
 	@Override
-	public ArrayList<CategoryVO> getMediumCategoryList() {
-		return categoryDao.getMediumCategoryList();
+	public ArrayList<CategoryVO> getCategoryList(CategoryDTO cvo) {
+		if(cvo == null )
+			return null;
+		if(cvo.getTb_name().equals("large_category"))
+			return categoryDao.getLargeCategoryList();
+		if(cvo.getTb_name().equals("medium_category"))
+			return categoryDao.getMediumCategoryList(cvo.getCode());
+		return categoryDao.getSmallCategoryList(cvo.getCode());
 	}
 }

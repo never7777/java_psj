@@ -8,7 +8,10 @@
   select * from large_category 
   </select>
   <select id="getMediumCategoryList" resultType="kr.green.book.vo.CategoryVO">
-  select * from medium_category 
+  select * from medium_category  where me_la_code = #{code}
+  </select>
+  <select id="getSmallCategoryList" resultType="kr.green.book.vo.CategoryVO">
+  select * from small_category where sm_me_code = #{code}
   </select>
   <insert id="insetLargeCategory">
   	insert into large_category(la_name) values(#{c.la_name})
@@ -19,4 +22,5 @@
   <insert id="insetSmallCategory">
   	insert into small_category(sm_me_code, sm_name) values(#{c.me_code}, #{c.sm_name})
   </insert>
+  
 </mapper>

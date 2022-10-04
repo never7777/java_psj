@@ -62,8 +62,8 @@
   <!--중분류-->
   <form method="post">
 	  <div class="medium-category-box">
-	    <select class="book-type" name=""  >
-	      <option value="null" name="" selected>= 대분류 =</option>
+	    <select class="book-type large_category" name=""  >
+	      <option value=""selected>= 대분류 =</option>
 	      <c:forEach items="${largeList}" var="la">
 	      	<option value="${la.la_code}" name="">${la.la_name}</option>
 	      </c:forEach>
@@ -75,16 +75,16 @@
   <!--소분류-->
   <form method="post">
 	  <div class="small-category-box">
-	    <select class="book-type" name="me_code" id="" >
+	    <select class="book-type  large_category" name="me_code" id="" >
 	      <option value=""  name="" selected>= 대분류 =</option>
 	      <c:forEach items="${largeList}" var="la">
 		      <option value="${la.la_code}">${la.la_name}</option>
 	      </c:forEach>
 	    </select>
-	    <select class="book-type" name="" id="" >
+	    <select class="book-type medium_category" name="" id="" >
 	      <option value="" selected>= 중분류 =</option>
 	      <c:forEach items="${mediumList}" var="me">
-	      	<option value="${me.me_code}">${me.me_name}</option>
+	      		<option value="${me.me_code}">${me.me_name}</option>
 	    	</c:forEach>
 	    </select>
 	    <input type="text" class="book-category-name" name="sm_name"> 
@@ -104,27 +104,91 @@ $(document).ready(function(){
     $('.small-category-box').hide();	
 
     $("input[name='category']").change(function(){
-		// 대분류 결제 선택 시.
-		if($("input[name='category']:checked").val() == '대분류'){
-			$('.large-category-box').show();
-			$('.medium-category-box').hide();
-			$('.small-category-box').hide();
-		}	
-		// 중분류 결제 선택 시.
-		else if($("input[name='category']:checked").val() == '중분류'){
-			$('.large-category-box').hide();
-			$('.medium-category-box').show();
-			$('.small-category-box').hide();
-		}
-		// 소분류 선택 시.
-		else if($("input[name='category']:checked").val() == '소분류'){
-			$('.large-category-box').hide();
-			$('.medium-category-box').hide();
-			$('.small-category-box').show();
-		}
-	});
+			// 대분류 결제 선택 시.
+			if($("input[name='category']:checked").val() == '대분류'){
+				$('.large-category-box').show();
+				$('.medium-category-box').hide();
+				$('.small-category-box').hide();
+			}	
+			// 중분류 결제 선택 시.
+			else if($("input[name='category']:checked").val() == '중분류'){
+				$('.large-category-box').hide();
+				$('.medium-category-box').show();
+				$('.small-category-box').hide();
+			}
+			// 소분류 선택 시.
+			else if($("input[name='category']:checked").val() == '소분류'){
+				$('.large-category-box').hide();
+				$('.medium-category-box').hide();
+				$('.small-category-box').show();
+			}
+			
+			
+		});
+   $('.book-type').change(function(){
+	   	
+	   	let tb_name = $(this).hasClass("large_category")? "medium_category":"";//테이블명 
+			let code = 0;//대분류 또는 중분류 코드번호
+			try{
+				if(tb_name != "large_category")
+					code = parseInt($(this).val())		
+			}catch(e){
+				return;
+			}
+			let obj = {
+					tb_name : tb_name,
+					code : code
+			}
+			getCategory(obj)
+   })
+   getCategory({
+		tb_name : "large_category",
+		code : 0
+	})
 });
 
+function getCategory(obj){
+
+	ajaxPost(false, obj, "/admin/category", function(data){
+		console.log(data);
+		let list = data.list;
+		let str = '';
+		if(obj.tb_name == 'large_category'){
+			str += '<option value="" >= 대분류 =</option>';
+			for(ca of list){
+				str += '<option value="'+ca.la_code+'" >'+ca.la_name+'</option>';
+			}
+			$('.large_category').html(str);
+		}else if(obj.tb_name == 'medium_category'){
+			str += '<option value="" >= 중분류 =</option>';
+			for(ca of list){
+				str += '<option value="'+ca.me_code+'" >'+ca.me_name+'</option>';
+			}
+			$('.medium_category').html(str);
+		}else if(obj.tb_name == 'small_category'){
+			str += '<option value="" >= 소분류 =</option>';
+			for(ca of list){
+				str += '<option value="'+ca.sm_code+'" >'+ca.sm_name+'</option>';
+			}
+			$('.small_category').html(str);
+		}
+	})
+	
+}
+function ajaxPost(async, dataObj, url, success){
+	$.ajax({
+	  async:async,
+	  type:'POST',
+	  data:JSON.stringify(dataObj),
+	  
+	  url:"<%=request.getContextPath()%>"+url,
+	  dataType:"json",
+	  contentType:"application/json; charset=UTF-8",
+	  success : function(data){
+		  success(data);
+	  }
+  });
+}
 
  
 </script>
