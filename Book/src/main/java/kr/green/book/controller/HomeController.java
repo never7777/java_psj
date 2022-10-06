@@ -122,7 +122,7 @@ public class HomeController {
 	/*관리자 페이지 -> 도서 등록 진행 중*/
 	@RequestMapping(value="/admin/addbook", method=RequestMethod.POST)
 	public ModelAndView adminAddBookPOST(ModelAndView mv,BookVO book, MultipartFile file) {
-		System.out.println(book);
+		
 		bookService.insertbook(book,file);
 		mv.setViewName("redirect:/admin/addbook");
 		return mv;

@@ -1,5 +1,6 @@
 package kr.green.book.service;
 
+
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,18 +16,19 @@ import kr.green.book.vo.BookVO;
 public class BookServiceImp implements BookService{
 	@Autowired
 	BookDAO bookDao;
+	
 	String bookThumbnailUploadPath ="G:\\git\\book";
 
 	@Override
 	public void insertbook(BookVO book, MultipartFile file) {
 		if(book == null || file == null ||file.getOriginalFilename().length() == 0)
 			return; 
-		try {
-			
-			String str = UploadFileUtils.uploadFile(bookThumbnailUploadPath, "bo"+book.getBo_ca_code(), file.getOriginalFilename(),file.getBytes());
+		
+		try {	// 경로, 파일 원래 이름, 파일 크기 
+			String str = UploadFileUtils.uploadFile(bookThumbnailUploadPath, book.getBo_title(), file.getOriginalFilename(), file.getBytes());
 			book.setBo_thum(str);
-			System.out.println(str);
-		}catch(Exception e) {
+			System.out.println(book);
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		bookDao.insertBook(book);
