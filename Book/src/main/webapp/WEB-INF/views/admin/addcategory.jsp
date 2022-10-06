@@ -62,7 +62,7 @@
   <!--중분류-->
   <form method="post">
 	  <div class="medium-category-box">
-	    <select class="book-type large_category" name=""  >
+	    <select class="book-type large_category" name="me_la_code" >
 	      <option value=""selected>= 대분류 =</option>
 	      <c:forEach items="${largeList}" var="la">
 	      	<option value="${la.la_code}" name="">${la.la_name}</option>
@@ -75,13 +75,13 @@
   <!--소분류-->
   <form method="post">
 	  <div class="small-category-box">
-	    <select class="book-type  large_category" name="me_code" id="" >
+	    <select class="book-type  large_category" name="me_la_code" id="" >
 	      <option value=""  name="" selected>= 대분류 =</option>
 	      <c:forEach items="${largeList}" var="la">
 		      <option value="${la.la_code}">${la.la_name}</option>
 	      </c:forEach>
 	    </select>
-	    <select class="book-type medium_category" name="" id="" >
+	    <select class="book-type medium_category" name="sm_me_code" id="" >
 	      <option value="" selected>= 중분류 =</option>
 	      <c:forEach items="${mediumList}" var="me">
 	      		<option value="${me.me_code}">${me.me_name}</option>
@@ -94,8 +94,6 @@
 </div>
 </body>
 <script>
-
-
 
 $(document).ready(function(){
 		// 초깃값
@@ -122,8 +120,6 @@ $(document).ready(function(){
 				$('.medium-category-box').hide();
 				$('.small-category-box').show();
 			}
-			
-			
 		});
    $('.book-type').change(function(){
 	   	

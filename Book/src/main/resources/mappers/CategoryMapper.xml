@@ -17,10 +17,10 @@
   	insert into large_category(la_name) values(#{c.la_name})
   </insert>
   <insert id="insetMediumCategory">
-  	insert into medium_category(me_la_code, me_name) values(#{c.la_code}, #{c.me_name})
+  	insert into medium_category(me_la_code, me_name) values(#{c.me_la_code}, #{c.me_name})
   </insert>
   <insert id="insetSmallCategory">
-  	insert into small_category(sm_me_code, sm_name) values(#{c.me_code}, #{c.sm_name})
+  	insert into small_category(sm_me_code, sm_name) values(#{c.sm_me_code}, #{c.sm_name})
   </insert>
   
 </mapper>

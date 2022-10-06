@@ -20,16 +20,15 @@ public class CategoryServiceImp implements CategoryService{
 		System.out.println(category);
 		if(category == null)
 			return false;
-		if(category.getLa_name() != null  && category.getLa_name().length() != 0)
-			categoryDao.insetLargeCategory(category);
-		if(category.getLa_code() != 0 && 
-				category.getMe_name() != null && 
-				category.getMe_name().length() != 0)
-			categoryDao.insetMediumCategory(category);
-		if(category.getMe_code() != 0 && 
-				category.getSm_name() != null && 
-				category.getSm_name().length() != 0)
+		//소분류등록
+		if(category.getSm_me_code() != 0)
 			categoryDao.insetSmallCategory(category);
+		//중분류 등록
+		else if(category.getMe_la_code() !=0)
+			categoryDao.insetMediumCategory(category);
+		else
+			categoryDao.insetLargeCategory(category);
+			
 		return true;
 	}
 

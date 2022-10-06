@@ -25,7 +25,10 @@
         height: 100px;
       }
       /*상단 우측 (로그인/ 회원가입)*/
-      li{
+      
+      
+      /*자손 선택자*/
+      .userlist li{
         list-style: none;
         display: inline;
         color : black;
@@ -72,7 +75,7 @@
 	<!--상단 오른쪽 박스--> 
   <div class="right-box">
     <div class="login-signup">
-      <ul>
+      <ul class="userlist">
 	      <c:if test="${user == null}">
 	        <a href="<c:url value="/signup"></c:url>">
 	          <li>회원가입</li>
@@ -103,16 +106,16 @@
 <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
   <ul class="navbar-nav">
     <li class="nav-item">
-      <a class="nav-link" href="#" data-toggle="dropdown">도서</a>
+      <a class="nav-link" href="<c:url value="/list"></c:url>" >도서</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" data-toggle="dropdown">국내도서</a>
+      <a class="nav-link" href="#">국내도서</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" data-toggle="dropdown">외국도서</a>
+      <a class="nav-link" href="#">외국도서</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#" data-toggle="dropdown">ebook</a>
+      <a class="nav-link" href="#">ebook</a>
     </li>
     <li class="nav-item">
       <a class="nav-link disabled" href="#">Disabled</a>

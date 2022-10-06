@@ -9,6 +9,6 @@ public interface CategoryService {
 
 	boolean insertCategory(CategoryVO category);
 
-		ArrayList<CategoryVO> getCategoryList(CategoryDTO cvo);
+	ArrayList<CategoryVO> getCategoryList(CategoryDTO cvo);
 
 }

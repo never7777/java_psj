@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.green.book.dao.BookDAO">
+	<insert id="insertBook">
+		insert into book 
+			(bo_isbn, bo_ca_code, bo_thum, bo_title, bo_publisher, bo_date,bo_price, bo_sale_price, 
+			bo_ea, bo_intro, bo_index,bo_author,bo_translator, bo_detail_page, bo_detail_size, 
+			bo_detail_weight) 
+		values
+			(#{bo.bo_isbn}, #{bo.bo_ca_code}, #{bo.bo_thum}, #{bo.bo_title}, #{bo.bo_publisher}, #{bo.bo_date},
+			#{bo.bo_price}, #{bo.bo_sale_price}, #{bo.bo_ea}, #{bo.bo_intro},#{bo.bo_index}, #{bo.bo_author}, #{bo.bo_translator},
+			#{bo.bo_detail_page},#{bo.bo_detail_size},#{bo.bo_detail_weight})
+	</insert>
+	<select id="selectBook" resultType="kr.green.book.vo.BookVO">
+			select * from book order by bo_isbn limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	<select id="selectTotalCount" resultType="int">
+			select count(*) from book
+	</select>
+</mapper>
