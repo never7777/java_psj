@@ -11,7 +11,7 @@ public class UploadFileUtils {
 	public static String uploadFile(String uploadPath,String dir, String originalName, byte[]
 			fileData)throws Exception{
 				String savedName = originalName; // 원래이름을 세이브네임으로 대입 
-				makeDir(uploadPath, dir); //경로에 폴더 생성
+				//makeDir(uploadPath, dir); //경로에 폴더 생성
 				File target = new File(uploadPath, savedName); //파일 객체 생성.
 				FileCopyUtils.copy(fileData, target); //파일 카피?? 
 				String uploadFileName = makeIcon(uploadPath, "", savedName); //스트링타입으로 바꿔주고 경로

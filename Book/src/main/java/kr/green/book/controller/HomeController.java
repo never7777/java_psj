@@ -144,7 +144,6 @@ public class HomeController {
 		ArrayList<BookVO> list = bookService.getBookList(cri);
 		int totalCount = bookService.getTotalCount();
 		PageMaker pm = new PageMaker(totalCount, 5, cri);
-		System.out.println(pm);
 		mv.addObject("pm",pm);
 		mv.addObject("list",list);
 		mv.setViewName("/main/list");

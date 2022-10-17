@@ -19,4 +19,8 @@
 	<select id="selectTotalCount" resultType="int">
 			select count(*) from book
 	</select>
+	<select id="selectBookIsbn" resultType="kr.green.book.vo.BookVO">
+			select * from book
+			where bo_isbn = #{bo_isbn};
+	</select>
 </mapper>

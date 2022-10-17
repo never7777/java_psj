@@ -15,4 +15,6 @@ public interface BookDAO {
 
 	int selectTotalCount();
 
+	BookVO selectBookIsbn(String bo_isbn);
+
 }

@@ -43,4 +43,11 @@ public class BookServiceImp implements BookService{
 	public int getTotalCount() {
 		return bookDao.selectTotalCount();
 	}
+
+	@Override
+	public BookVO selectBook(String bo_isbn) {
+		if(bo_isbn == null || bo_isbn.length() !=13)
+			return null;
+		return bookDao.selectBookIsbn(bo_isbn);
+	}
 }

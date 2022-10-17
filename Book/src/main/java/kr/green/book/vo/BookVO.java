@@ -27,8 +27,15 @@ public class BookVO {
 	private String bo_intro;
 	private String bo_index;
 	
-	public String get_Bo_date_str() {
+	public String getBo_date_str() {
 		SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		return format.format(bo_date);
+	}
+	public String getBo_date_ymstr() {
+		SimpleDateFormat format = new SimpleDateFormat("yyyy년 MM월");
+		return format.format(bo_date);
+	}
+	public String getBo_thum_url() {
+		return "/book/img/" + bo_thum;
 	}
 }

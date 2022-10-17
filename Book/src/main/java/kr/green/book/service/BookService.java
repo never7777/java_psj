@@ -15,4 +15,6 @@ public interface BookService {
 
 	int getTotalCount();
 
+	BookVO selectBook(String bo_isbn);
+
 }
